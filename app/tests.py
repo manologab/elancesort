@@ -44,12 +44,10 @@ def jsonRequest(data, client = None):
     return json.loads(resp.content.decode('utf-8', 'replace'))
 
 class MainTest(TestCase):
-    def test_notFound(self):
-        c = Client()
-        resp = c.get('/notfound')
-        self.assertEqual(resp.status_code, 404)
-
     def test_validation(self):
+        """
+        Test json data validation
+        """
         with self.assertRaisesRegexp(RequestError, 'data not received'):
             jsonRequest(None);
 
@@ -157,7 +155,7 @@ class MainTest(TestCase):
 
     def test_onlyR(self):
         """
-        Order by r, items keep their position when equals
+        Order by r only, items keep their position when equals
         """
         data = {
             'toSort' :[{'d': '01:06:2015', 'originalOrder': 1, 'p': 250, 'r': 1},
